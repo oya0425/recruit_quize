@@ -54,6 +54,11 @@ int main() {
 	y = uniform_int_distribution<>(1, 5)(rand) * 2;
 	questions.push_back({ "面積" + to_string(x * y / 2) + "cm^2,底辺" + to_string(y) + "cmの三角形の高さを求めよ。",+x });
 
+	//円錐の体積
+	x = uniform_int_distribution<>(1, 10)(rand);
+	y = uniform_int_distribution<>(1, 5)(rand);
+	questions.push_back({ "底辺の半径" + to_string(x) + to_string(y) + "cmの円錐がある。\n" + "この円錐の体積をXπcm^3とする。Xの値を求めよ",
+		+x * x * y / 3 });
 
 	cout << "[リクルート試験対策クイズ]\n";
 	//cout << "13x(-5)の答えは？\n";
