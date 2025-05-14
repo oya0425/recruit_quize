@@ -12,6 +12,17 @@ struct Question
 	string a;
 };
 
+//最大公約数を求める
+int gcd(int a, int b) {
+	//余りが０になった時に除数を返す
+	while (b) {
+		int r = a % b;
+		a = b;	//除数を次の被除数にする
+		b = r;	//余りを次の除数にする
+	}
+	return a;
+}
+
 int main() {
 	//Question questions[]{
 	//	{"13x(-5)",13 * -5},
@@ -48,7 +59,7 @@ int main() {
 	questions[2].q = to_string(x) + "-(" + to_string(y*w) + "+" + to_string(z*w) + ")÷" + to_string(w)+"の答えは？";
 
 	//questions[2].a = x - (y + z) / w;
-	questions[2].a = x - (y + z);
+	questions[2].a = to_string(x - (y + z));
 
 	//三角形
 	x = uniform_int_distribution<>(1, 10)(rand);
@@ -58,7 +69,7 @@ int main() {
 	//円錐の体積
 	x = uniform_int_distribution<>(1, 10)(rand);
 	y = uniform_int_distribution<>(1, 5)(rand);
-	questions.push_back({ "底辺の半径" + to_string(x) + to_string(y) + "cmの円錐がある。\n" + "この円錐の体積をXπcm^3とする。Xの値を求めよ",
+	questions.push_back({ "底辺の半径" + to_string(x) +"cm、高さ"+ to_string(y) + "cmの円錐がある。\n" + "この円錐の体積をXπcm^3とする。Xの値を求めよ",
 		to_string(x * x * y / 3) });
 
 	//球の体積
@@ -67,6 +78,12 @@ int main() {
 	questions.push_back({ "円の半径" + to_string(x) +"cmの球がある。\n" + "この球の体積をXπcm^3とする。Xの値を求めよ",
 		to_string(x * x *x*  4/ 3) });
 
+	//サイコロの確率
+	x = uniform_int_distribution<>(1, 5)(rand);
+	y = uniform_int_distribution<>(1, 6-x)(rand);
+	z = gcd(y + 1, 6);
+	questions.push_back({ "サイコロを１個振って、" + to_string(x) + "から" + to_string(x + y) + "が出る確率を求めよ。",
+		to_string((y + 1) / z) + "/" + to_string(6 / z) });
 
 	cout << "[リクルート試験対策クイズ]\n";
 	//cout << "13x(-5)の答えは？\n";
