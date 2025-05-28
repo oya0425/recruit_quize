@@ -1,16 +1,10 @@
+#include"question.h"
 #include<iostream>
 using namespace std;
 #include<string>
 #include<random>
 #include<vector>
 
-//問題文と答えをまとめる構造体
-struct Question
-{
-	string q;	//問題文
-	//int a;		//答え
-	string a;
-};
 
 //最大公約数を求める
 int gcd(int a, int b) {
@@ -84,6 +78,16 @@ int main() {
 	z = gcd(y + 1, 6);
 	questions.push_back({ "サイコロを１個振って、" + to_string(x) + "から" + to_string(x + y) + "が出る確率を求めよ。",
 		to_string((y + 1) / z) + "/" + to_string(6 / z) });
+
+	//順列　階乗を使う　例、9人のうち７人を選ぶ、９の階乗の9*8になる７は含まない
+	x = uniform_int_distribution<>(3, 7)(rand);
+	y = uniform_int_distribution<>(1, x)(rand);
+	z = 1;
+	for (int i = 0; i < y; i++) {
+		z *= x - i;
+	}
+	questions.push_back({ to_string(x) + "人のうち" + to_string(y) + "人を選んで並べる方法は何通りあるか？",
+		to_string(z) });
 
 	cout << "[リクルート試験対策クイズ]\n";
 	//cout << "13x(-5)の答えは？\n";
