@@ -1,4 +1,5 @@
 #include"question.h"
+#include"exam_japanese.h"
 #include<iostream>
 using namespace std;
 #include<string>
@@ -91,7 +92,13 @@ int main() {
 
 	cout << "[リクルート試験対策クイズ]\n";
 	//cout << "13x(-5)の答えは？\n";
-	
+	cout << "教科を選んでください\n1=数学\n2=国語\n";
+	int subject;
+	cin >> subject;
+	if (subject == 2) {
+		questions = CreateKanjiExam();
+	}
+
 	for (const auto& e : questions) {
 		cout << e.q << "\n";
 		string answer;
