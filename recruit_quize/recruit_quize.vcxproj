@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exam_japanese.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="question.h" />
     <ClInclude Include="utility.h" />
   </ItemGroup>
