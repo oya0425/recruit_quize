@@ -106,6 +106,10 @@ int main() {
 		//‘Î‹`Œê
 		QuestionList antonymExam = CreateAntonymExam();
 		questions.insert(questions.end(), antonymExam.begin(), antonymExam.end());
+
+		//—Þ‹`Œê
+		QuestionList synonymExam = CreateSynonymExam();
+		questions.insert(questions.end(), synonymExam.begin(), synonymExam.end());
 	}
 
 	for (const auto& e : questions) {
