@@ -160,6 +160,32 @@ QuestionList CreateHomophoneExam()
 		{"納める","金や物を渡すべきところに渡す"},
 		{"治める","乱れている物事を落ち着いて穏やかな状態にする"},
 		{"修める","行いや人格を正しくする、学問や技芸などを学んで身に着ける"}}},
+		{"しょうかい",{
+		{"紹介","未知の人や集団を引き合わせること"},
+		{"照会","問い合わせて確かめること"}}},
+		{"いじょう",{
+		{"異常","普段と異なる様子"},
+		{"異状","姿かたちが異なる様子"}}},
+		{"きょうこう",{
+		{"強行","困難があるとわかっていて無理に物事を行うこと"},
+		{"強硬","自分の立場や主張を強い態度で押し通そうとすること"}}},
+		{"じったい",{
+		{"実体","物事の本当の姿や形"},
+		{"実態","物事の本当の状態"}}},
+		{"きょうい",{
+		{"脅威","強い力や勢いにおそれさせること"},
+		{"驚異","驚くほど素晴らしいものごと"}}},
+		{"かいしん",{
+		{"会心","期待通りに物事が運んで満足すること"},
+		{"改心","悪い考えや行いを反省し、よい心に改めること"}}},
+		{"しめる",{
+		{"占める","場所、位置、地位などを自分のものにする"},
+		{"締める","強く引っ張ったりひねったりして、緩みのないようにする"},
+		{"閉める","物を動かして隙間をふさぐ"}}},
+		{"つつしむ",{
+		{"謹む","相手を敬い尊重する"},
+		{"慎む","過ちを起こさないよう控えめに行動する"}}},
+
 
 	};
 
@@ -193,6 +219,52 @@ QuestionList CreateHomophoneExam()
 	}
 	
 
+
+	return questions;
+}
+
+QuestionList CreateAntonymExam()
+{
+	const struct {
+		const char* kanji[2];
+	}data[]{
+		{"意図(いと)","恣意(しい)"},{"需要(じゅよう)","供給(きょうきゅう)"},
+		{"故意(こい)","過失(かしつ)"},{"曖昧(あいまい)","明瞭(めいりょう)"},
+		{"緊張(きんちょう)","弛緩(しかん)"},{"過疎(かそ)","過密(かみつ)"},
+		{"栄転(えいてん)","左遷(させん)"},{"消費(しょうひ)","生産(せいさん)"},
+		{"異端(いたん)","正統(せいとう)"},{"尊敬(そんけい)","軽蔑(けいべつ)"},
+		{"警戒(けいかい)","油断(ゆだん)"},{"乾燥(かんそう)","湿潤()"},
+		{"帰納(きのう)","演繹(えんえき)"},{"枯渇(こかつ)","潤沢(じゅんたく)"},
+		{"賞賛(しょうさん)","罵倒(ばとう)"},{"中枢(ちゅうすう)","末端(まったん)"},
+		{"絶賛(ぜっさん)","酷評(こくひょう)"},{"創造(そうぞう)","模倣(もほう)"},
+		{"過激(かげき)","穏健(おんけん)"},{"質素(しっそ)","華美(かび)"},
+	};
+
+		constexpr int quizCount = 5;
+	QuestionList questions;
+	questions.reserve(quizCount);
+	const vector<int>indices = CreateRandomIndices(size(data));
+	random_device rd;
+
+	for (int i = 0; i < quizCount; i++) {
+		//間違った番号をランダムに選ぶ
+		const int correctIndex = indices[i];
+		vector<int>answers = CreateWronogIndices(size(data), correctIndex);
+
+		//ランダムな位置を正しい番号で上書き
+		const int correctNo = uniform_int_distribution<>(1, 4)(rd);
+		answers[correctNo - 1] = correctIndex;
+
+		//問題を作成する
+		const int object = uniform_int_distribution<>(0, 1)(rd);
+		const int other = (object + 1) % 2;
+		string s = "「" + string(data[correctIndex].kanji[object]) + "」の対義語として正しい番号を選べ";
+		for (int j = 0; j < 4; j++) {
+			s += "\n" + to_string(j + 1) + ":" + data[answers[j]].kanji[object];
+		}
+
+		questions.push_back({ s,to_string(correctNo) });
+	}
 
 	return questions;
 }
