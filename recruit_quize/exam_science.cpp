@@ -89,7 +89,7 @@ QuestionList CreataPhysicsExam()
         }
         answer += to_string(v / 10);
         if (v % 10) {
-            answer += '-';
+            answer += '.';
             answer += '0' + v % 10;
         }
         questions.push_back({
